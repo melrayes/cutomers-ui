@@ -32,10 +32,12 @@ export default () => {
         const updatedCurrentPage = Math.min(currentPage, totalPages - 1);
         setPageSize(value);
         setCurrentPage(updatedCurrentPage);
+        loadCustomers(updatedCurrentPage, value);
     };
-
-    const loadCustomers = () => {
-        listCustomers(currentPage, pageSize, filters).then(response => {
+    const loadCustomers = (_currentPage, _pageSize) => {
+        listCustomers(_currentPage ? _currentPage : currentPage,
+            _pageSize ? _pageSize : pageSize,
+            filters).then(response => {
             setRows(response.data.content);
             setTotalCount(response.data.totalSize);
             setLoading(false);
